@@ -1,3 +1,11 @@
+# modify dbus conf:
+sudo gedit /etc/dbus-1/system.conf
+# add the following:
+<allow eavesdrop="true"/>
+<allow eavesdrop="true" send_requested_reply="false"/>
+<allow eavesdrop="true" receive_requested_reply="false"/>
+
+
 # restart lighttpd:
 sudo /etc/init.d/lighttpd restart
 
@@ -51,7 +59,8 @@ sudo /etc/init.d/ofono restart
 #sudo apt-get install d-feet
 
 # start phonesim:
-ofono-phonesim /mnt/data/angstrom/moblin.xml
+#WROOOONG ofono-phonesim /mnt/data/angstrom/moblin.xml
+ofono-phonesim -p 12345 -gui moblin.xml
 
 #activate the ofono thingy
 dbus-send --print-reply --system --dest=org.ofono /phonesim0 org.ofono.Modem.SetProperty string:"Powered" variant:boolean:"true"
