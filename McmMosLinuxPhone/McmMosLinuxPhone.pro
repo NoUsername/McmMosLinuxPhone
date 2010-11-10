@@ -9,10 +9,17 @@ QT       += core gui
 TARGET = McmMosLinuxPhone
 TEMPLATE = app
 
+CONFIG += qdbus
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    dbus/OfonoVoiceCallManager.cpp \
+    dbus/OfonoSimManager.cpp \
+    dbus/OfonoModem.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    dbus/OfonoVoiceCallManager.h \
+    dbus/OfonoSimManager.h \
+    dbus/OfonoModem.h
 
 FORMS    += mainwindow.ui
