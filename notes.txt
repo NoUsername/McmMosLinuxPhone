@@ -1,0 +1,89 @@
+# restart lighttpd:
+sudo /etc/init.d/lighttpd restart
+
+# trigger build:
+cd /mnt/data/angstrom/build
+MACHINE=beagleboard bitbake base-image
+
+# OK, we dont need the following, we have layers for this
+# new (modified one):
+#MACHINE=beagleboard bitbake base-image2
+#image will then be called base-image-new
+#
+# LAYER CONFIG: BKL=Berger,Klingelhuber,Lachberger
+cd /mnt/data/angstrom/BKL-overlay
+#info for qt-embedded-sdk: http://docs.openembedded.org/usermanual/usermanual.html#id527673
+
+
+
+
+# i think the finished images are located in:
+/mnt/data/angstrom/build/tmp-angstrom_2008_1/deploy/glibc/images/beagleboard
+
+
+# minicom commands:
+setenv bootargs 'video=omapfb:mode:1920x1080@25 console=ttyS2,115200n8 root=/dev/mmcblk0p2 rw rootwait'
+setenv bootcmd 'mmc init;fatload mmc 0 80300000 uImage;bootm 80300000'
+saveenv
+
+
+# phonesim only on dev-machine
+# ofono on dev-machine for developing
+# ofono on the beableboard later and connected to phonesim over usb/ethernet
+
+
+# continue angstrom base-image
+# create overlay (slides) --> put own recipes in it (open-embedded.pdf -> page 40)
+# create own image
+# /angstrom/ -> create own folder for own recipypypy, add those recipes to your own overlay (e.g: layers/recipes/images/ -> create file [fancy name here].bb)
+
+# append images with +=
+# overwrite image_basename (e.g. "mcm-base-image") for our image
+
+# ofono config
+sudo nano /etc/ofono/modem.conf
+
+# restart ofono
+sudo /etc/init.d/ofono restart
+
+
+# d-feet (dbus debugger)
+#sudo apt-get install d-feet
+
+# start phonesim:
+ofono-phonesim /mnt/data/angstrom/moblin.xml
+
+#activate the ofono thingy
+dbus-send --print-reply --system --dest=org.ofono /phonesim0 org.ofono.Modem.SetProperty string:"Powered" variant:boolean:"true"
+
+
+#dbus commands:
+dbus-send --print-reply --system --dest=org.ofono /phonesim0 org.ofono.Modem.GetProperties
+# power on
+dbus-send --print-reply --system --dest=org.ofono /phonesim0 org.ofono.Modem.SetProperty string:"Powered" variant:boolean:"true"
+# call sb
+dbus-send --print-reply --system --dest=org.ofono /phonesim0 org.ofono.VoiceCallManager.Dial string:"012345" string:"default"
+# hang up (because the other person said some mean things and now i have to wash my ears)
+dbus-send --print-reply --system --dest=org.ofono /phonesim0 org.ofono.VoiceCallManager.HangupAll
+
+# (before the next thing i called the power-on method once)
+# get xml file:
+dbus-send --print-reply --system --dest=org.ofono /phonesim0 org.freedesktop.DBus.Introspectable.Introspect > ofono.xml
+# original from the slides has /phonesim instead of /phonesim0
+
+#annotation to fix unknown types:
+#<annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QVariantMap"/>
+
+#generate classes:
+qdbusxml2cpp -p OfonoModem ofono.xml org.ofono.Modem
+qdbusxml2cpp -p OfonoSimManager ofono.xml org.ofono.SimManager
+qdbusxml2cpp -p OfonoVoiceCallManager ofono.xml org.ofono.VoiceCallManager
+
+# create qt things from/for dbus
+<annotation name="com.trolltech.QtDBus.QtTypeName.Out0" value="QVariantMap" />
+
+qdbusxml2cpp -c Test -p test_p.h:test.cpp -i mystruct.h test2.xml
+
+
+# get the whole xmlfile
+dbus-send --print-reply --session --dest=org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.DBus.Introspectable.Introspect > file.xml
