@@ -1,6 +1,56 @@
 import Qt 4.7
 
-Item {
+
+Rectangle {
+    id: buttonContainer
+    property string text: ""    //no used because pictures has text
+    property string iconPicSource: ""
+    signal clicked
+    width: 160
+    height: 70
+    // background color
+    color: "transparent"
+    opacity: 1
+
+    // Border image which is on top of the button
+    BorderImage {
+        id: buttonImage
+        opacity: 1
+        source: iconPicSource
+        width: parent.width; height: parent.height
+        smooth: true
+    }
+
+    // If anyone would like to create a text above the picture
+    Text{
+        anchors.centerIn:  buttonImage
+        text: buttonContainer.text
+        color: "black"
+    }
+
+    // Trigger area :)
+    MouseArea {
+        id: mouseRegion
+        // region where cursor may react
+        anchors.fill:  buttonImage
+        onClicked: {
+            // send to container that we can trigger the button (log message)
+            buttonContainer.clicked();
+        }
+    }
+
+    states: [
+        State {
+            name: "Pressed";
+            when: mouseRegion.pressed;
+            PropertyChanges {
+                target: buttonContainer;
+                opacity: 0.5
+            }
+        }
+    ]
+}
+/*Item {
     id: container
     width: buttonImage.width
     property string text: ""
@@ -36,3 +86,4 @@ Item {
     ]
 
 }
+*/
