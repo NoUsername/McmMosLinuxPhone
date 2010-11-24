@@ -1,6 +1,6 @@
 SRC_URI = "https://NoUsername@github.com/NoUsername/McmMosLinuxPhone.git"
 
-S = "${WORKDIR}/git/QtQuickApp"
+S = "${WORKDIR}/git/McmMosLinuxPhone"
 
 inherit qt4x11
 
