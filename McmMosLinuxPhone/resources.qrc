@@ -1,0 +1,52 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="BlankButton.qml">qml/BlankButton.qml</file>
+        <file alias="Button.qml">qml/Button.qml</file>
+        <file alias="calculator.js">qml/calculator.js</file>
+        <file alias="CalcWindow.qml">qml/CalcWindow.qml</file>
+        <file alias="call.js">qml/call.js</file>
+        <file alias="calling.js">qml/calling.js</file>
+        <file alias="CallingWindow.qml">qml/CallingWindow.qml</file>
+        <file alias="CallWindow.qml">qml/CallWindow.qml</file>
+        <file alias="Display.qml">qml/Display.qml</file>
+        <file alias="js.js">qml/js.js</file>
+        <file alias="mainWIndow2.qml">qml/mainWindow2.qml</file>
+        <file alias="MainWindow.qml">qml/MainWindow.qml</file>
+        <file alias="MenuBar.qml">qml/MenuBar.qml</file>
+        <file alias="MenuWindow.qml">qml/MenuWindow.qml</file>
+        <file>Pics/bg.jpg</file>
+        <file>Pics/bg.png</file>
+        <file>Pics/blue.png</file>
+        <file>Pics/call.png</file>
+        <file>Pics/decline.png</file>
+        <file>Pics/home.png</file>
+        <file>Pics/red.png</file>
+        <file>Pics/gpl/Browser.png</file>
+        <file>Pics/gpl/Browser_58.png</file>
+        <file>Pics/gpl/Calculator.png</file>
+        <file>Pics/gpl/Calendar.png</file>
+        <file>Pics/gpl/Calendar_58.png</file>
+        <file>Pics/gpl/Chat.png</file>
+        <file>Pics/gpl/Chat_58.png</file>
+        <file>Pics/gpl/Clock.png</file>
+        <file>Pics/gpl/Clock_58.png</file>
+        <file>Pics/gpl/Gnome-call-start.svg</file>
+        <file>Pics/gpl/Gnome-call-start_48.png</file>
+        <file>Pics/gpl/Gnome-call-stop.svg</file>
+        <file>Pics/gpl/Gnome-call-stop_48.png</file>
+        <file>Pics/gpl/Graph.png</file>
+        <file>Pics/gpl/iPod.png</file>
+        <file>Pics/gpl/Maps.png</file>
+        <file>Pics/gpl/Maps_58.png</file>
+        <file>Pics/gpl/Notes.png</file>
+        <file>Pics/gpl/Notes_58.png</file>
+        <file>Pics/gpl/Phone.png</file>
+        <file>Pics/gpl/Phone_58.png</file>
+        <file>Pics/gpl/Settings.png</file>
+        <file>Pics/gpl/Settings_58.png</file>
+        <file>Pics/gpl/Weather.png</file>
+        <file>Pics/lgpl/contacts.png</file>
+        <file>Pics/lgpl/female.png</file>
+        <file>Pics/lgpl/male.png</file>
+    </qresource>
+</RCC>

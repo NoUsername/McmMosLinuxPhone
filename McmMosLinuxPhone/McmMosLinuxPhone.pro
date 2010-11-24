@@ -6,20 +6,21 @@
 
 QT       += core gui
 
+include(qmlapplicationviewer/qmlapplicationviewer.pri)
+
 TARGET = McmMosLinuxPhone
 TEMPLATE = app
 
 CONFIG += qdbus
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     dbus/OfonoVoiceCallManager.cpp \
     dbus/OfonoSimManager.cpp \
     dbus/OfonoModem.cpp \
     ofono.cpp \
     dbus/OfonoVoiceCall.cpp \
     phonebookentry.cpp \
-    phonebookstorage.cpp \
+    phonebookstorage.cpp
 
 HEADERS  += mainwindow.h \
     dbus/OfonoVoiceCallManager.h \
@@ -30,4 +31,5 @@ HEADERS  += mainwindow.h \
     phonebookentry.h \
     phonebookstorage.h
 
-FORMS    += mainwindow.ui
+RESOURCES += \
+    resources.qrc
