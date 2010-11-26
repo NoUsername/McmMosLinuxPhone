@@ -9,7 +9,7 @@ Ofono::Ofono(QObject *parent) :
     m_ofonoVoiceCallManagerInterface = new OrgOfonoVoiceCallManagerInterface("org.ofono", "/phonesim", QDBusConnection::systemBus());
 
     //setPowerOn();
-    startPhoneCall("1234666");
+    //startPhoneCall("1234666");
     stopPhoneCall();
 }
 
