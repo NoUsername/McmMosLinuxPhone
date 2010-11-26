@@ -1,0 +1,2 @@
+DESCRIPTION = "Our test recipe"
+
