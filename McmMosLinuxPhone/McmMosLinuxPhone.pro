@@ -16,12 +16,14 @@ SOURCES += main.cpp\
     dbus/OfonoVoiceCallManager.cpp \
     dbus/OfonoSimManager.cpp \
     dbus/OfonoModem.cpp \
-    ofono.cpp
+    ofono.cpp \
+    dbus/OfonoVoiceCall.cpp
 
 HEADERS  += mainwindow.h \
     dbus/OfonoVoiceCallManager.h \
     dbus/OfonoSimManager.h \
     dbus/OfonoModem.h \
-    ofono.h
+    ofono.h \
+    dbus/OfonoVoiceCall.h
 
 FORMS    += mainwindow.ui
