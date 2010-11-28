@@ -6,8 +6,8 @@ Rectangle {
     property string text: ""    //no used because pictures has text
     property string iconPicSource: ""
     signal clicked
-    width: 160
-    height: 70
+    width: 50
+    height: 50
     // background color
     color: "transparent"
     opacity: 1
@@ -46,44 +46,13 @@ Rectangle {
             PropertyChanges {
                 target: buttonContainer;
                 opacity: 0.5
+                width: 45
+                height: 45
             }
         }
     ]
+
+    transitions: Transition {
+        NumberAnimation { properties:  "x,y"; easing.type: Easing.InOutQuad }
+    }
 }
-/*Item {
-    id: container
-    width: buttonImage.width
-    property string text: ""
-    property string iconSource: "btn.png"
-    signal clicked
-    Image {
-        id: buttonImage
-        opacity: 1
-        source: iconSource
-        width: theText.width + 20; height: container.cellHeight
-        fillMode: "Stretch"
-
-    }
-    Text{
-        id: theText
-        anchors.centerIn:  buttonImage
-        text: container.text
-        color: "black"
-    }
-
-    MouseArea {
-        id: mouseRegion
-        anchors.fill:  buttonImage
-        onClicked: { container.clicked(); }
-    }
-
-    states: [
-        State {
-            name: "Pressed"; when: mouseRegion.pressed;
-
-            PropertyChanges {target: theText; opacity: 0.6 }
-        }
-    ]
-
-}
-*/

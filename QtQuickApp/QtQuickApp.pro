@@ -34,10 +34,18 @@ include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
 OTHER_FILES += \
-    qml/mainWindow.qml \
     qml/Button.qml \
     qml/js.js \
-    qml/moCallWindow.qml
+    qml/BlankButton.qml \
+    qml/Display.qml \
+    qml/calculator.js \
+    qml/call.js \
+    qml/MainWindow.qml \
+    qml/CallWindow.qml \
+    qml/MainWindow.qml \
+    qml/CalcWindow.qml \
+    qml/MenuWindow.qml \
+    qml/MenuBar.qml
 
 HEADERS += \
     Ofonov.h
