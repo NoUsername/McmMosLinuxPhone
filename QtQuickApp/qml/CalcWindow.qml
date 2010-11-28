@@ -6,7 +6,7 @@ import "calculator.js" as CalcEngine
 Rectangle {
     id: calcWindowID
 
-    width: parent.width; height: parent.height
+    width: parent.width; height: parent.height // +30 to avoid clash with menubar
     color: "#282828"
 
     property string rotateLeft: "\u2939"
@@ -19,16 +19,26 @@ Rectangle {
 
     function doOp(operation) { CalcEngine.doOperation(operation) }
 
+    // Background info
+    Image {
+        source: "Pics/bg.jpg"
+        id: image
+        // image should move and scale with the borders
+        width: parent.width; height: parent.height
+        // for smoother positioning
+        smooth: true
+        opacity: 0.9
+    }
 
     Item {
         id: main
 
-        width: parent.width; height: parent.height; anchors.centerIn: parent
+        width: parent.width; height: parent.height-30;
 
         Column {
-            id: box; spacing: 8
+            id: box; spacing: 2
 
-            anchors { fill: parent; topMargin: 6; bottomMargin: 6; leftMargin: 6; rightMargin: 6 }
+            anchors { fill: parent; topMargin: 1; bottomMargin: 1; leftMargin: 6; rightMargin: 6 }
 
             Display {
                 id: display
@@ -37,21 +47,21 @@ Rectangle {
             }
 
             Column {
-                id: column; spacing: 6
+                id: column; spacing: 1
 
                 property real h: ((box.height - 72) / 6) - ((spacing * (6 - 1)) / 6)
                 property real w: (box.width / 4) - ((spacing * (4 - 1)) / 4)
 
                 Row {
-                    spacing: 6
-                    BlankButton { width: column.w; height: column.h; color: 'blue'; operation: "Off" }
+                    spacing: 1
+                    //BlankButton { width: column.w; height: column.h; color: 'blue'; operation: "Off" }
                     BlankButton { width: column.w; height: column.h; color: 'blue'; operation: leftArrow }
                     BlankButton { width: column.w; height: column.h; color: 'blue'; operation: "C" }
                     BlankButton { width: column.w; height: column.h; color: 'blue'; operation: "AC" }
                 }
 
                 Row {
-                    spacing: 6
+                    spacing: 1
                     property real w: (box.width / 4) - ((spacing * (4 - 1)) / 4)
 
                     BlankButton { width: column.w; height: column.h; color: 'blue'; operation: "mc" }
@@ -61,7 +71,7 @@ Rectangle {
                 }
 
                 Grid {
-                    id: grid; rows: 5; columns: 5; spacing: 6
+                    id: grid; rows: 5; columns: 5; spacing: 1
 
                     property real w: (box.width / columns) - ((spacing * (columns - 1)) / columns)
 
@@ -121,12 +131,12 @@ Rectangle {
     states: [
         State {
             name: "calcWindowStateOut"
-            PropertyChanges { target: calcWindowID; x: -1000; y: 0 }
+            PropertyChanges { target: calcWindowID; x: -1000; y: 30 }  // 30 to provide space for manu bar -1000 to go out of screen
         },
 
         State {
             name: "calcWindowStateIn"
-            PropertyChanges { target: calcWindowID; x: 0; y: 0  }
+            PropertyChanges { target: calcWindowID; x: 0; y: 30  } // 30 to provide space for manu bar
         }
     ]
 }

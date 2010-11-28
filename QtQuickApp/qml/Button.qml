@@ -5,12 +5,14 @@ Rectangle {
     id: buttonContainer
     property string text: ""    //no used because pictures has text
     property string iconPicSource: ""
+    property string textColor: "black"
     signal clicked
     width: 50
     height: 50
     // background color
     color: "transparent"
     opacity: 1
+
 
     // Border image which is on top of the button
     BorderImage {
@@ -25,7 +27,7 @@ Rectangle {
     Text{
         anchors.centerIn:  buttonImage
         text: buttonContainer.text
-        color: "black"
+        color: textColor
     }
 
     // Trigger area :)

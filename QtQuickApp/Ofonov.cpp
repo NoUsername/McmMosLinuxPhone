@@ -10,12 +10,18 @@ Ofonov::Ofonov(QObject *parent) :
 
 void Ofonov::setPowerOn()
 {
-    qDebug("Ofonov set PowerOn()");
-    emit this->outgoingCall(QString("Message from CPP"));
+    qDebug("Ofonov PowerOn()");
+
 }
 
 Q_INVOKABLE void Ofonov::setPowerOff()
 {
-    qDebug("Ofonov set setPowerOff()");
-    emit this->incomingCall(QString("Message from CPP"));
+    qDebug("Ofonov setPowerOff()");
+    emit this->incomingCall(QString("+4369911736993"));
+}
+
+void Ofonov::MOCall(QString _number)
+{
+    qDebug("Ofonov MOCall()");
+    emit this->outgoingCall(QString("")+_number);
 }

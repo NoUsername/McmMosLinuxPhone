@@ -5,12 +5,23 @@ import "call.js" as CallEngine
 Rectangle {
     id: callWindowID
 
-    width: parent.width; height: parent.height
+    width: parent.width; height: parent.height+20 // +20 to avoid clash with menubar
     color: "#287728"
 
     property string leftArrow: "\u2190"
 
     function doOp(operation) { CallEngine.doOperation(operation) }
+
+    // Background info
+    Image {
+        source: "Pics/bg.jpg"
+        id: image
+        // image should move and scale with the borders
+        width: parent.width; height: parent.height
+        // for smoother positioning
+        smooth: true
+        opacity: 0.9
+    }
 
     Item {
         id: main
@@ -61,12 +72,12 @@ Rectangle {
     states: [
         State {
             name: "callWindowStateOut"
-            PropertyChanges { target: callWindowID; x: -1000; y: 0 }
+            PropertyChanges { target: callWindowID; x: -1000; y: 30 } // 30 to provide space for manu bar -1000 to go out of screen
         },
 
         State {
             name: "callWindowStateIn"
-            PropertyChanges { target: callWindowID; x: 0; y: 0  }
+            PropertyChanges { target: callWindowID; x: 0; y: 30  } // 30 to provide space for manu bar
         }
     ]
 }
