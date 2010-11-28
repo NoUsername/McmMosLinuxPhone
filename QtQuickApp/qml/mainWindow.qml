@@ -6,10 +6,12 @@ Rectangle {
     width: 240
     height: 320
     color: "black"
+    id: mainWindowID
+
 
     // Background info
     Image {
-        source: "bg.png"
+        source: "Pics/bg.jpg"
         id: image
         // image should move and scale with the borders
         width: parent.width; height: parent.height
@@ -24,49 +26,35 @@ Rectangle {
         y: parent.height/100*5
         color: "white"
         text: "McmMosLinuxPhone"
-        id: "label"
+        id: label
     }
 
-    // HomeBtn
-    Button {
-        //button position
-        //Warning! Changing values here will overwrite button properities
-        x: parent.width/100*2
-        y: parent.height - 80
-        iconPicSource: "home.png"
-        onClicked: {
-            console.log("Make homescreen available!");
-            JS.GotoHome();
-            console.log("Callscreen called:"+JS.GetHomeCnt());
-            OfonoContext.setPowerOn();
-        }
-        id: "homeBtn"
+    MenuWindow {
+        id: mainWindowGrid
     }
 
-    // CallBtn
-    Button {
-        //button position
-        //Warning! Changing values here will overwrite button properities
-        x: parent.width - 160
-        y: parent.height - 80
-        iconPicSource: "call.png"
-        onClicked: {
-            console.log("Make callscreen available!");
-            JS.GotoMOCall();
-            console.log("Callscreen called:"+JS.GetMOCallCnt());
-            OfonoContext.setPowerOff();
-        }
-        id: "callBtn"
+    CalcWindow {
+        id: calcWindowID
+        state: 'calcWindowStateOut'
     }
 
-    Connections {
-        target: OfonoContext
-        onIncomingCall: {
-            console.log("QML: Incoming Call: " + id);
-        }
-        onOutgoingCall: {
-            console.log("QML: Outgoing Call: " + id);
-        }
+    CallWindow {
+        id: callWindowID
+        state: 'callWindowStateOut'
     }
+
+
+
+    states: [
+        State {
+            name: "mainWindowStateOut"
+            PropertyChanges { target: mainWindowGrid; x: -1010; y: 0 }
+        },
+
+        State {
+            name: "mainWindowStateIn"
+            PropertyChanges { target: mainWindowID; x: parent.width / 2 - width/2; y: 0  }
+        }
+    ]
 
 }
