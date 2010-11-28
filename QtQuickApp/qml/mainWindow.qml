@@ -1,6 +1,7 @@
 import Qt 4.7
 
 import "js.js" as JS
+import "calling.js" as CallingEngine
 
 Rectangle {
     width: 240
@@ -23,10 +24,14 @@ Rectangle {
     // Label
     Text {
         x: parent.width/2-65
-        y: parent.height/100*5
+        y: 35 //parent.height/100*5 // space for menubar
         color: "white"
         text: "McmMosLinuxPhone"
         id: label
+    }
+
+    MenuBar {
+        id: menuBar
     }
 
     MenuWindow {
@@ -43,17 +48,39 @@ Rectangle {
         state: 'callWindowStateOut'
     }
 
+    CallingWindow {
+        id: callingWindowID
+        state: 'callingWindowStateOut'
+    }
 
+    Connections {
+         target: OfonoContext
+         onIncomingCall: {
+             console.log("QML: Incoming Call: " + id);
+             callingWindowID.state = 'callingWindowStateIn'
+             callingWindowID.setNumber(id);
+             calcWindowID.state = 'calcWindowStateOut'
+             callWindowID.state = 'callWindowStateOut'
+             mainWindowID.state = 'mainWindowStateOut'
+         }
+         onOutgoingCall: {
+             console.log("QML: Outgoing Call: " + id);
+             callingWindowID.state = 'callingWindowStateIn'
+             callingWindowID.setNumber(id);
+             calcWindowID.state = 'calcWindowStateOut'
+             callWindowID.state = 'callWindowStateOut'
+             mainWindowID.state = 'mainWindowStateOut'
+         }
+     }
 
     states: [
         State {
             name: "mainWindowStateOut"
-            PropertyChanges { target: mainWindowGrid; x: -1010; y: 0 }
-        },
-
+            PropertyChanges { target: mainWindowGrid; x: -1000; y: label.y + label.height; } // main window grid is below label
+        } ,
         State {
             name: "mainWindowStateIn"
-            PropertyChanges { target: mainWindowID; x: parent.width / 2 - width/2; y: 0  }
+            PropertyChanges { target: mainWindowGrid; x: mainWindowID.width / 2 - mainWindowGrid.width/2; y: label.y + label.height;  } // main window grid is below label
         }
     ]
 

@@ -15,6 +15,7 @@ signals:
 
 public slots:
     void setPowerOn();
+    void MOCall(QString _number);
 
 public:
     Q_INVOKABLE void setPowerOff();

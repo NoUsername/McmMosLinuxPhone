@@ -45,7 +45,9 @@ OTHER_FILES += \
     qml/MainWindow.qml \
     qml/CalcWindow.qml \
     qml/MenuWindow.qml \
-    qml/MenuBar.qml
+    qml/MenuBar.qml \
+    qml/CallingWindow.qml \
+    qml/calling.js
 
 HEADERS += \
     Ofonov.h
