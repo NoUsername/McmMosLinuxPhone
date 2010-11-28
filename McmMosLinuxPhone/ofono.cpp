@@ -40,3 +40,31 @@ void Ofono::stopPhoneCall(){
         qDebug() << "[ERROR] Ofono::setPowerOn(): member var is NULL!";
     }
 }
+
+void Ofono::PropertyChanged(const QString &name, const QDBusVariant &value)
+{
+    if(name == "Calls")
+    {
+        const QVariant var = value.variant();
+        const QDBusArgument a = var.value<QDBusArgument>();
+        //qDebug()<<var;
+        a.beginArray();
+        while(!a.atEnd())
+        {
+            QDBusObjectPath opath;
+            a >> opath;
+            OrgOfonoVoiceCallInterface *call = new OrgOfonoVoiceCallInterface ("org.ofono", opath.path(), QDBusConnection::systemBus());
+            QVariantMap properties=call->GetProperties();
+            QVariant property=properties.value("State");
+            QString value=property.value<QString>();
+            if(value=="dialing")
+            {
+                qDebug()<<"dialing";
+            }
+            else if(value=="incoming")
+            {
+                qDebug() << "incoming";
+            }
+        }
+    }
+}

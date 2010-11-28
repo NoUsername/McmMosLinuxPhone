@@ -9,6 +9,7 @@
 #include <QDBusVariant>
 #include <QString>
 #include <QDebug>
+#include "dbus/OfonoVoiceCall.h"
 
 class Ofono : public QObject
 {
@@ -22,6 +23,7 @@ public slots:
     void setPowerOn();
     void startPhoneCall(QString _number);
     void stopPhoneCall();
+    void PropertyChanged(const QString &_name,const QDBusVariant &value);
 
 private://MEMBER-VARS
     OrgOfonoModemInterface* m_ofonoModemInterface;
