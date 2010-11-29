@@ -9,7 +9,6 @@ Ofono::Ofono(QObject *parent) :
     m_ofonoVoiceCallManagerInterface = new OrgOfonoVoiceCallManagerInterface("org.ofono", "/phonesim", QDBusConnection::systemBus());
 
     QObject::connect(m_ofonoVoiceCallManagerInterface,SIGNAL(PropertyChanged(QString,QDBusVariant)),this,SLOT(propertyChanged(QString,QDBusVariant)));
-    QObject::connect(this,SIGNAL(incomingCall(OrgOfonoVoiceCallInterface*)),this,SLOT(answer(OrgOfonoVoiceCallInterface*)));
 }
 
 void Ofono::setPowerOn() {
@@ -31,7 +30,9 @@ void Ofono::setPowerOff(){
 void Ofono::startPhoneCall(QString _number){
     if(m_ofonoVoiceCallManagerInterface != NULL){
         if(_number != NULL && _number.length() > 0){
+            qDebug()<<"startPhoneCall";
             m_ofonoVoiceCallManagerInterface->Dial(_number,"default");
+            emit outgoingCall(_number);
         }else{
             qDebug() << "[ERROR] Ofono::startPhoneCall(): number is null or not a valid number!";
         }
@@ -43,21 +44,21 @@ void Ofono::startPhoneCall(QString _number){
 void Ofono::stopPhoneCall(){
     if(m_ofonoVoiceCallManagerInterface != NULL){
         m_ofonoVoiceCallManagerInterface->HangupAll();
+        qDebug()<<"phonecall stopped";
     }else{
         qDebug() << "[ERROR] Ofono::setPowerOn(): member var is NULL!";
     }
 }
 
-void Ofono::answer(OrgOfonoVoiceCallInterface *_call){
-    if(_call != NULL){
-        QVariantMap properties=_call->GetProperties();
-        QVariant property=properties.value("State");
-        QString value=property.value<QString>();
-        qDebug()<< "answer()";
-        if(value == "incoming"){
-            _call->Answer();
-            qDebug() << "ansewered";
-        }
+void Ofono::answerCall(){
+    qDebug()<< "answer()";
+    OrgOfonoVoiceCallInterface *call = new OrgOfonoVoiceCallInterface ("org.ofono", m_path, QDBusConnection::systemBus());
+    QVariantMap properties=call->GetProperties();
+    QVariant property=properties.value("State");
+    QString value=property.value<QString>();
+    if(value == "incoming"){
+        call->Answer();
+        qDebug() << "ansewered";
     }
 }
 
@@ -67,16 +68,18 @@ void Ofono::propertyChanged(const QString &_name, const QDBusVariant &_value)
     if(_name == "Calls")
     {
         const QVariant var = _value.variant();
-        const QDBusArgument a = var.value<QDBusArgument>();
+        QDBusArgument dbusArgument = var.value<QDBusArgument>();
         //qDebug()<<var;
-        a.beginArray();
-        while(!a.atEnd())
+        dbusArgument.beginArray();
+        while(!dbusArgument.atEnd())
         {
             QDBusObjectPath opath;
-            a >> opath;
-            OrgOfonoVoiceCallInterface *call = new OrgOfonoVoiceCallInterface ("org.ofono", opath.path(), QDBusConnection::systemBus());
+            dbusArgument >> opath;
+            m_path = opath.path();
+            OrgOfonoVoiceCallInterface *call = new OrgOfonoVoiceCallInterface ("org.ofono", m_path, QDBusConnection::systemBus());
             QVariantMap properties=call->GetProperties();
             QVariant property=properties.value("State");
+
             QString value=property.value<QString>();
             if(value=="dialing")
             {
@@ -84,8 +87,13 @@ void Ofono::propertyChanged(const QString &_name, const QDBusVariant &_value)
             }
             else if(value=="incoming")
             {
+                QVariant callIDProperty= properties.value("LineIdentification");
+                QString callerID =callIDProperty.value<QString>();
                 qDebug() << "incoming";
-                emit incomingCall(call);
+                emit incomingCall(callerID);
+            }else if(value == ""){
+                //what to do when phonecall is aborted?
+                emit phoneCallAborted();
             }
         }
     }

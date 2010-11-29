@@ -1,5 +1,3 @@
-
-import "js.js" as JS
 import Qt 4.7
 import "calculator.js" as CalcEngine
 

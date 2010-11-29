@@ -18,7 +18,13 @@ public:
     explicit Ofono(QObject *parent = 0);
 
 signals:
-    void incomingCall(OrgOfonoVoiceCallInterface *_call);
+    void incomingCall(QString id);
+
+signals://from qml
+    void outgoingCall(QString id);
+
+signals: //to qml
+    void phoneCallAborted();
 
 public slots:
     void setPowerOn();
@@ -26,11 +32,12 @@ public slots:
     void startPhoneCall(QString _number);
     void stopPhoneCall();
     void propertyChanged(const QString &_name,const QDBusVariant &_value);
-    void answer(OrgOfonoVoiceCallInterface *_call);
+    void answerCall();
 
 private://MEMBER-VARS
     OrgOfonoModemInterface* m_ofonoModemInterface;
     OrgOfonoVoiceCallManagerInterface* m_ofonoVoiceCallManagerInterface;
+    QString m_path;
 };
 
 #endif // OFONO_H

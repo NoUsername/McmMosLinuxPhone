@@ -40,6 +40,7 @@ Rectangle {
 
             Button { width: 50; height: 50; iconPicSource: "Pics/gpl/Gnome-call-stop_48.png"; color: 'transparent'; x: callingWindowMainID.width/2-25;  onClicked:
                 {
+                    OfonoContext.stopPhoneCall()
                     callingWindowID.state = 'callingWindowStateOut'
                     calcWindowID.state = 'calcWindowStateOut'
                     callWindowID.state = 'callWindowStateOut'

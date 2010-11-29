@@ -1,7 +1,6 @@
 #include <QtGui/QApplication>
-#include "Ofonov.h"
 #include "qmlapplicationviewer.h"
-
+#include "ofono.h"
 #include <QDeclarativeContext>
 
 
@@ -14,7 +13,7 @@ int main(int argc, char *argv[])
 
     QmlApplicationViewer viewer;
     viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
-    viewer.rootContext()->setContextProperty("OfonoContext", new Ofonov());
+    viewer.rootContext()->setContextProperty("OfonoContext", new Ofono());
     viewer.setSource(QUrl("qrc:/MainWindow.qml"));
 
     viewer.show();

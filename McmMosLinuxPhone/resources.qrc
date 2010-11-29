@@ -9,8 +9,6 @@
         <file alias="CallingWindow.qml">qml/CallingWindow.qml</file>
         <file alias="CallWindow.qml">qml/CallWindow.qml</file>
         <file alias="Display.qml">qml/Display.qml</file>
-        <file alias="js.js">qml/js.js</file>
-        <file alias="mainWIndow2.qml">qml/mainWindow2.qml</file>
         <file alias="MainWindow.qml">qml/MainWindow.qml</file>
         <file alias="MenuBar.qml">qml/MenuBar.qml</file>
         <file alias="MenuWindow.qml">qml/MenuWindow.qml</file>
@@ -48,5 +46,7 @@
         <file>Pics/lgpl/contacts.png</file>
         <file>Pics/lgpl/female.png</file>
         <file>Pics/lgpl/male.png</file>
+        <file alias="AnswerWindow.qml">qml/AnswerWindow.qml</file>
+        <file alias="answer.js">qml/answer.js</file>
     </qresource>
 </RCC>
