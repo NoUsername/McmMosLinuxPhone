@@ -18,12 +18,15 @@ public:
     explicit Ofono(QObject *parent = 0);
 
 signals:
+    void incomingCall(OrgOfonoVoiceCallInterface *_call);
 
 public slots:
     void setPowerOn();
+    void setPowerOff();
     void startPhoneCall(QString _number);
     void stopPhoneCall();
-    void PropertyChanged(const QString &_name,const QDBusVariant &value);
+    void propertyChanged(const QString &_name,const QDBusVariant &_value);
+    void answer(OrgOfonoVoiceCallInterface *_call);
 
 private://MEMBER-VARS
     OrgOfonoModemInterface* m_ofonoModemInterface;

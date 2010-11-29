@@ -8,9 +8,8 @@ Ofono::Ofono(QObject *parent) :
     m_ofonoModemInterface = new OrgOfonoModemInterface("org.ofono", "/phonesim", QDBusConnection::systemBus());
     m_ofonoVoiceCallManagerInterface = new OrgOfonoVoiceCallManagerInterface("org.ofono", "/phonesim", QDBusConnection::systemBus());
 
-    //setPowerOn();
-    //startPhoneCall("1234666");
-    stopPhoneCall();
+    QObject::connect(m_ofonoVoiceCallManagerInterface,SIGNAL(PropertyChanged(QString,QDBusVariant)),this,SLOT(propertyChanged(QString,QDBusVariant)));
+    QObject::connect(this,SIGNAL(incomingCall(OrgOfonoVoiceCallInterface*)),this,SLOT(answer(OrgOfonoVoiceCallInterface*)));
 }
 
 void Ofono::setPowerOn() {
@@ -18,6 +17,14 @@ void Ofono::setPowerOn() {
         m_ofonoModemInterface->SetProperty("Powered", QDBusVariant(true));
     }else{
         qDebug() << "[ERROR] Ofono::setPowerOn(): member var is NULL!";
+    }
+}
+
+void Ofono::setPowerOff(){
+    if(m_ofonoModemInterface != NULL){
+        m_ofonoModemInterface->SetProperty("Powered", QDBusVariant(false));
+    }else{
+        qDebug() << "[ERROR] Ofono::setPowerOff(): member var is NULL!";
     }
 }
 
@@ -41,11 +48,25 @@ void Ofono::stopPhoneCall(){
     }
 }
 
-void Ofono::PropertyChanged(const QString &name, const QDBusVariant &value)
+void Ofono::answer(OrgOfonoVoiceCallInterface *_call){
+    if(_call != NULL){
+        QVariantMap properties=_call->GetProperties();
+        QVariant property=properties.value("State");
+        QString value=property.value<QString>();
+        qDebug()<< "answer()";
+        if(value == "incoming"){
+            _call->Answer();
+            qDebug() << "ansewered";
+        }
+    }
+}
+
+void Ofono::propertyChanged(const QString &_name, const QDBusVariant &_value)
 {
-    if(name == "Calls")
+    qDebug() << "inside propertyChanged()";
+    if(_name == "Calls")
     {
-        const QVariant var = value.variant();
+        const QVariant var = _value.variant();
         const QDBusArgument a = var.value<QDBusArgument>();
         //qDebug()<<var;
         a.beginArray();
@@ -64,6 +85,7 @@ void Ofono::PropertyChanged(const QString &name, const QDBusVariant &value)
             else if(value=="incoming")
             {
                 qDebug() << "incoming";
+                emit incomingCall(call);
             }
         }
     }
