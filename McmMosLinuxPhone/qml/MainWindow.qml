@@ -1,6 +1,5 @@
 import Qt 4.7
 
-import "js.js" as JS
 import "calling.js" as CallingEngine
 
 Rectangle {
@@ -53,11 +52,18 @@ Rectangle {
         state: 'callingWindowStateOut'
     }
 
+    AnswerWindow{
+        id: answerWindowID
+        state: 'answerWindowStateOut'
+    }
+
     Connections {
          target: OfonoContext
          onIncomingCall: {
              console.log("QML: Incoming Call: " + id);
-             callingWindowID.state = 'callingWindowStateIn'
+             answerWindowID.state = 'answerWindowStateIn'
+             answerWindowID.setNumber(id);
+             callingWindowID.state = 'callingWindowStateOut'
              callingWindowID.setNumber(id);
              calcWindowID.state = 'calcWindowStateOut'
              callWindowID.state = 'callWindowStateOut'
@@ -66,10 +72,15 @@ Rectangle {
          onOutgoingCall: {
              console.log("QML: Outgoing Call: " + id);
              callingWindowID.state = 'callingWindowStateIn'
+             answerWindowID.state = 'answerWindowStateOut'
              callingWindowID.setNumber(id);
              calcWindowID.state = 'calcWindowStateOut'
              callWindowID.state = 'callWindowStateOut'
              mainWindowID.state = 'mainWindowStateOut'
+         }
+
+         onPhoneCallAborted: {
+
          }
      }
 

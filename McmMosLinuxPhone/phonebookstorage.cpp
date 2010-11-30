@@ -35,4 +35,5 @@ PhonebookEntry PhonebookStorage::getPhonebookEntry(int _index){
     }
     //ERROR
     qDebug() << "[ERROR] PhonebookStorage::getPhonebookEntry(int) invalid index";
+    return PhonebookEntry("","");
 }

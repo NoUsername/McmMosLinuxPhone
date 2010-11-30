@@ -34,7 +34,7 @@ var curVal = 0
      display.currentOperation.text = ""
 
      if (op == "+") {
-         OfonoContext.MOCall(display.text.valueOf().toString());
+         OfonoContext.startPhoneCall(display.text.valueOf().toString());
          display.text = "Calling"+display.text.valueOf().toString()
      } else if (op == leftArrow) {
          display.text = display.text.toString().slice(0, -1)
