@@ -4,12 +4,24 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui declarative
 
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 
 TARGET = McmMosLinuxPhone
 TEMPLATE = app
+unix {
+
+    BINDIR = $$PREFIX/bin
+
+    #MAKE INSTALL
+
+    INSTALLS += target
+
+    target.path = $$BINDIR
+
+}
+
 
 CONFIG += qdbus
 
@@ -22,8 +34,7 @@ SOURCES += main.cpp\
     phonebookentry.cpp \
     phonebookstorage.cpp
 
-HEADERS  += mainwindow.h \
-    dbus/OfonoVoiceCallManager.h \
+HEADERS  += dbus/OfonoVoiceCallManager.h \
     dbus/OfonoSimManager.h \
     dbus/OfonoModem.h \
     ofono.h \
