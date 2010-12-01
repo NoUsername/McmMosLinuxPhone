@@ -1,0 +1,22 @@
+require = recipes/images/base-image.bb
+
+#DEPENDS += " \
+#  libqtdeclarative4 \
+#  "
+
+XSERVER = "xserver-kdrive-fbdev"
+
+DEPENDS += " \
+  ${XSERVER} \
+  "
+
+IMAGE_INSTALL += " \
+  ${XSERVER} \
+  libqtdeclarative4 \
+  "
+
+export IMAGE_BASENAME = "bkl-image"
+
+#inherit image
+
+
