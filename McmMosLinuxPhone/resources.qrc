@@ -14,9 +14,6 @@
         <file alias="MenuWindow.qml">qml/MenuWindow.qml</file>
         <file>Pics/bg.png</file>
         <file>Pics/blue.png</file>
-        <file>Pics/call.png</file>
-        <file>Pics/decline.png</file>
-        <file>Pics/home.png</file>
         <file>Pics/red.png</file>
         <file>Pics/gpl/Browser.png</file>
         <file>Pics/gpl/Browser_58.png</file>
