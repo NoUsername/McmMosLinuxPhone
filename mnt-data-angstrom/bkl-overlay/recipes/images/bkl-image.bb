@@ -42,6 +42,8 @@ DEPENDS += " \
 IMAGE_INSTALL += " \
   ${XSERVER} \
   libqtdeclarative4 \
+  task-fonts-truetype-core \
+  qt4-embedded-fonts \
   bkl-phone-app \
   "
 
