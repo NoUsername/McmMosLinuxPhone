@@ -12,12 +12,14 @@ Grid {
         {
             callWindowID.state = 'callWindowStateIn'
             mainWindowID.state = 'mainWindowStateOut'
+			// others must not be cleared, because we are already in home state
          }
     }
     Button {id: calculatorBtn; iconPicSource: "Pics/gpl/Calculator.png"; onClicked:
         {
             calcWindowID.state = 'calcWindowStateIn'
             mainWindowID.state = 'mainWindowStateOut'
+			// others must not be cleared, because we are already in home state
         }
     }
     Button {id: testBtn; iconPicSource: "Pics/gpl/Clock.png"; onClicked: {} }

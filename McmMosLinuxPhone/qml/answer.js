@@ -1,6 +1,5 @@
 var m_number = ""
 
-
  function getNumber() {
     return m_number;
  }

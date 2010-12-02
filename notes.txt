@@ -96,3 +96,10 @@ qdbusxml2cpp -c Test -p test_p.h:test.cpp -i mystruct.h test2.xml
 
 # get the whole xmlfile
 dbus-send --print-reply --session --dest=org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.DBus.Introspectable.Introspect > file.xml
+
+
+
+we changed this file:
+/mnt/data/angstrom/sources/openembedded/recipes/qt4/qt-4.7.1.inc
+
+see: http://patchwork.openembedded.org/patch/3410/

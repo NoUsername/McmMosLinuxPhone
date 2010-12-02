@@ -28,7 +28,7 @@ buildOverlayImage:
 #	sh angstrom-setup-scripts/oebb.sh config beagleboard ; \
   cd /mnt/data/angstrom/build ; \
 	source ~/.oe/environment ; \
-	MACHINE=beagleboard bitbake bkl-image -DD ; \
+	MACHINE=beagleboard bitbake bkl-image -DDD ; \
 #	bitbake bkl-image; \
 	)
 	

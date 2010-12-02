@@ -3,7 +3,7 @@ import Qt 4.7
 
 Rectangle {
     id: buttonContainer
-    property string text: ""    //no used because pictures has text
+    property string text: ""    //no used because pictures has text most of the time
     property string iconPicSource: ""
     property string textColor: "black"
     signal clicked

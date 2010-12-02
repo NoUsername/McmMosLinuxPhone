@@ -9,7 +9,7 @@ Rectangle {
     id: mainWindowID
 
 
-    // Background info
+    // Background
     Image {
         source: "Pics/bg.jpg"
         id: image
@@ -20,43 +20,50 @@ Rectangle {
         opacity: 0.9
     }
 
-    // Label
+    // Label for headline name
     Text {
         x: parent.width/2-65
-        y: 35 //parent.height/100*5 // space for menubar
+        y: 35 // space for menubar
         color: "white"
         text: "McmMosLinuxPhone"
         id: label
     }
 
+	// top menu bar
     MenuBar {
         id: menuBar
     }
 
+	// main window (home screen)
     MenuWindow {
         id: mainWindowGrid
     }
 
+	// calculator window (calc app)
     CalcWindow {
         id: calcWindowID
         state: 'calcWindowStateOut'
     }
 
+	// call window (call app - number field)
     CallWindow {
         id: callWindowID
         state: 'callWindowStateOut'
     }
 
+	// actually call window (once mt call accepted or mo call in progress)
     CallingWindow {
         id: callingWindowID
         state: 'callingWindowStateOut'
     }
 
+	// is displayed once an mt call was triggered
     AnswerWindow{
         id: answerWindowID
         state: 'answerWindowStateOut'
     }
 
+	// Calls from qt-cpp ofono context
     Connections {
          target: OfonoContext
          onIncomingCall: {
@@ -80,7 +87,11 @@ Rectangle {
          }
 
          onPhoneCallAborted: {
-
+             callingWindowID.state = 'callingWindowStateOut'
+             answerWindowID.state = 'answerWindowStateOut'
+			 calcWindowID.state = 'calcWindowStateOut'
+             callWindowID.state = 'callWindowStateOut'
+             mainWindowID.state = 'mainWindowStateIn'
          }
      }
 
