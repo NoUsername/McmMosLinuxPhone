@@ -14,7 +14,7 @@ Rectangle {
 
     // Background info
     Image {
-        source: "Pics/bg.jpg"
+        source: "Pics/bg.png"
         id: image
         // image should move and scale with the borders
         width: parent.width; height: parent.height

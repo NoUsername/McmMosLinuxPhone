@@ -12,7 +12,6 @@
         <file alias="MainWindow.qml">qml/MainWindow.qml</file>
         <file alias="MenuBar.qml">qml/MenuBar.qml</file>
         <file alias="MenuWindow.qml">qml/MenuWindow.qml</file>
-        <file>Pics/bg.jpg</file>
         <file>Pics/bg.png</file>
         <file>Pics/blue.png</file>
         <file>Pics/call.png</file>
